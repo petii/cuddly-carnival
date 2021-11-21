@@ -1,12 +1,12 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:i18n_extension/default.i18n.dart';
 
 import '../widgets/event_entry.dart';
 
 class EventList extends StatefulWidget {
-  const EventList({Key? key}) : super(key: key);
+  EventList({Key? key}) : super(key: key);
 
-  final String title = 'Your Events';
+  final String title = 'Your Events'.i18n;
 
   @override
   State<StatefulWidget> createState() => _EventListState();
@@ -19,8 +19,14 @@ class _EventListState extends State<EventList> {
       appBar: AppBar(
         title: Text(widget.title),
         actions: [
-          IconButton(onPressed: () =>{}, tooltip: 'Search your events', icon: const Icon(Icons.search)),
-          IconButton(onPressed: () =>{}, tooltip: 'Discover more events', icon: const Icon(Icons.add)),
+          IconButton(
+              onPressed: () => {},
+              tooltip: 'Search'.i18n,
+              icon: const Icon(Icons.search)),
+          IconButton(
+              onPressed: () => {},
+              tooltip: 'Discover more events on Facebook'.i18n,
+              icon: const Icon(Icons.add)),
         ],
       ),
       body: ListView(

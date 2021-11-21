@@ -1,5 +1,6 @@
-import 'package:cuddly_carnival/pages/event_list.dart';
 import 'package:flutter/material.dart';
+import 'package:i18n_extension/i18n_widget.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 
 import 'pages/event_list.dart';
 
@@ -26,9 +27,20 @@ class CucaApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.blueGrey,
       ),
-      home: const EventList(),
+      home: I18n(child: EventList()),
       // home: const MyHomePage(title: 'Flutter Demo Home Page'),
       // routes: {  '/': _MyHomePageState().build },
+      localizationsDelegates: const [
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+      ],
+      supportedLocales: const [
+        Locale('en'),
+        Locale('hu'),
+        Locale('de'),
+        Locale('fr')
+      ],
     );
   }
 }
