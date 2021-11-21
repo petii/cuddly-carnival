@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:cuddly_carnival/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:i18n_extension/default.i18n.dart';
@@ -8,8 +10,6 @@ import '../routes.dart';
 class EventList extends StatefulWidget {
   EventList({Key? key}) : super(key: key);
 
-  final String title = 'Your Events'.i18n;
-
   @override
   State<StatefulWidget> createState() => _EventListState();
 }
@@ -19,16 +19,12 @@ class _EventListState extends State<EventList> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.title),
+        title: Text('Your Events'.i18n),
         actions: [
           IconButton(
               onPressed: () => {},
               tooltip: 'Search'.i18n,
               icon: const Icon(Icons.search)),
-          IconButton(
-              onPressed: () => {Navigator.pushNamed(context, ROUTE.Discover)},
-              tooltip: 'Discover more events on Facebook'.i18n,
-              icon: const Icon(Icons.add)),
         ],
       ),
       body: ListView(
@@ -36,6 +32,9 @@ class _EventListState extends State<EventList> {
           EventEntry(),
         ],
       ),
+      floatingActionButton: FloatingActionButton(
+          onPressed: () => {Navigator.pushNamed(context, ROUTE.Discover)},
+          child: const Icon(Icons.add)),
     );
   }
 }

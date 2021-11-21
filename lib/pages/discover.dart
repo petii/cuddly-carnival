@@ -9,29 +9,12 @@ class DiscoverPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Facebook - Discover Events'.i18n),
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.home),
-            onPressed: () => {},
-          ),
-          IconButton(
-            onPressed: () => {},
-            icon: const Icon(Icons.list),
-          )
-        ],
-      ),
-      drawer: Drawer(
-        child: Text('drawer'),
-      ),
-      body: WebView(
+      body: const WebView(
         initialUrl: 'https://facebook.com/events/discovery',
-        onPageStarted: (String url) => {log(url)},
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () => {},
-        child: Icon(Icons.keyboard_return),
+        onPressed: () => {Navigator.pop(context)},
+        child: const Icon(Icons.done),
       ),
     );
   }
