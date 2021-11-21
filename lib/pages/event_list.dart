@@ -1,7 +1,9 @@
+import 'package:cuddly_carnival/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:i18n_extension/default.i18n.dart';
 
 import '../widgets/event_entry.dart';
+import '../routes.dart';
 
 class EventList extends StatefulWidget {
   EventList({Key? key}) : super(key: key);
@@ -24,7 +26,7 @@ class _EventListState extends State<EventList> {
               tooltip: 'Search'.i18n,
               icon: const Icon(Icons.search)),
           IconButton(
-              onPressed: () => {},
+              onPressed: () => {Navigator.pushNamed(context, ROUTE.Discover)},
               tooltip: 'Discover more events on Facebook'.i18n,
               icon: const Icon(Icons.add)),
         ],

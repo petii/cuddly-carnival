@@ -3,6 +3,8 @@ import 'package:i18n_extension/i18n_widget.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
 import 'pages/event_list.dart';
+import 'pages/discover.dart';
+import 'routes.dart';
 
 void main() {
   runApp(const CucaApp());
@@ -27,9 +29,6 @@ class CucaApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.blueGrey,
       ),
-      home: I18n(child: EventList()),
-      // home: const MyHomePage(title: 'Flutter Demo Home Page'),
-      // routes: {  'discover': (BuildContext) =>  },
       localizationsDelegates: const [
         GlobalMaterialLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate,
@@ -41,6 +40,8 @@ class CucaApp extends StatelessWidget {
         Locale('de'),
         Locale('fr')
       ],
+      home: I18n(child: EventList()),
+      routes: {ROUTE.Discover: (BuildContext context) => DiscoverPage()},
     );
   }
 }

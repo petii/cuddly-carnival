@@ -5,7 +5,8 @@ class EventEntry extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(mainAxisAlignment: MainAxisAlignment.spaceAround,
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: const [
         Text('here'),
         Text('be'),
