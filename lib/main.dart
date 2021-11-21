@@ -1,17 +1,19 @@
+import 'package:cuddly_carnival/pages/event_list.dart';
 import 'package:flutter/material.dart';
 
+import 'pages/event_list.dart';
+
 void main() {
-  runApp(const MyApp());
+  runApp(const CucaApp());
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+class CucaApp extends StatelessWidget {
+  const CucaApp({Key? key}) : super(key: key);
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'Cuddly Carnival',
       theme: ThemeData(
         // This is the theme of your application.
         //
@@ -24,7 +26,9 @@ class MyApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.blueGrey,
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      home: const EventList(),
+      // home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      // routes: {  '/': _MyHomePageState().build },
     );
   }
 }
