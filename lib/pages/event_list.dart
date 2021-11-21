@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:developer';
 
 import 'package:cuddly_carnival/routes.dart';
@@ -17,11 +18,11 @@ const String eventsPath =
 class EventList extends StatefulWidget {
   const EventList({required this.accessToken, Key? key}) : super(key: key);
 
-  Future<dynamic> getEvents() async {
+  Future<Map<String, dynamic>> getEvents() async {
     http.Response response =
         await http.get(Uri.parse(eventsPath + accessToken.token));
     log(response.statusCode.toString());
-    return response.body;
+    return jsonDecode(response.body);
   }
 
   final AccessToken accessToken;
@@ -48,12 +49,19 @@ class _EventListState extends State<EventList> {
         future: widget.getEvents(),
         builder: (BuildContext context, AsyncSnapshot snapshot) {
           log(snapshot.toString());
+          final children = <Widget>[];
+          final List<dynamic> eventData;
+          if (snapshot.hasData) {
+            eventData = snapshot.data['data'];
+          } else {
+            eventData = [];
+          }
           return ListView(
-            children: [
-              Text(snapshot.connectionState.toString()),
-              Text(snapshot.toString()),
-              Text(snapshot.data.toString()),
-            ],
+            children: eventData
+                .map(
+                  (data) => Text(data['name']),
+                )
+                .toList(),
           );
         },
       ),
