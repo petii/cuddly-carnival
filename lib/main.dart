@@ -1,20 +1,47 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:i18n_extension/i18n_widget.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 
 import 'pages/event_list.dart';
 import 'pages/discover.dart';
+import 'pages/loginsplash.dart';
 import 'routes.dart';
 
-void main() {
-  runApp(const CucaApp());
+Future<void> main() async {
+  // final LoginResult result = await FacebookAuth.instance.login(
+  //   permissions: ['public_profile', 'user_events'],
+  // );
+  // log(result.toString());
+  runApp(CucaApp());
 }
 
-class CucaApp extends StatelessWidget {
-  const CucaApp({Key? key}) : super(key: key);
+class CucaApp extends StatefulWidget {
+  CucaApp({Key? key}) : super(key: key) {
+    // final LoginResult result = await FacebookAuth.instance.login(
+    //   permissions: ['public_profile', 'user_events'],
+    // );
+    // log(result.toString());
+  }
+
+  @override
+  State<StatefulWidget> createState() => _AppState();
+}
+
+class _AppState extends State<CucaApp> {
+  Future<AccessToken?> _login() async {
+    final LoginResult result = await FacebookAuth.instance.login(
+      permissions: ['public_profile', 'user_events'],
+    );
+    log(result.toString());
+    return result.accessToken;
+  }
 
   @override
   Widget build(BuildContext context) {
+    // log(widget.accessToken.toString());
     return MaterialApp(
       title: 'Cuddly Carnival',
       theme: ThemeData(
@@ -41,8 +68,24 @@ class CucaApp extends StatelessWidget {
         Locale('de'),
         Locale('fr')
       ],
-      home: I18n(child: EventList()),
-      routes: {ROUTE.Discover: (BuildContext context) => DiscoverPage()},
+      home: I18n(
+        child: FutureBuilder(
+            future: _login(),
+            builder: (BuildContext context, AsyncSnapshot snapshot) {
+              if (snapshot.connectionState != ConnectionState.done) {
+                log(snapshot.toString());
+                return const LoginSplash();
+              }
+              log(snapshot.data.toString());
+              return EventList();
+            }),
+        // EventList()
+      ),
+      routes: {
+        ROUTE.Login: (BuildContext context) => const LoginSplash(),
+        ROUTE.Events: (BuildContext context) => EventList(),
+        ROUTE.Discover: (BuildContext context) => DiscoverPage(),
+      },
     );
   }
 }
