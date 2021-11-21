@@ -29,7 +29,7 @@ class CucaApp extends StatelessWidget {
       ),
       home: I18n(child: EventList()),
       // home: const MyHomePage(title: 'Flutter Demo Home Page'),
-      // routes: {  '/': _MyHomePageState().build },
+      // routes: {  'discover': (BuildContext) =>  },
       localizationsDelegates: const [
         GlobalMaterialLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate,
