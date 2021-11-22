@@ -53,10 +53,8 @@ class _AppState extends State<CucaApp> {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Cuddly Carnival',
-      theme: ThemeData(
-        primarySwatch: Colors.blueGrey,
-        // colorScheme: const ColorScheme.light(),
-      ),
+      theme: ThemeData.light(),
+      darkTheme: ThemeData.dark(),
       localizationsDelegates: const [
         GlobalMaterialLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate,

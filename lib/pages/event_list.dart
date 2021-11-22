@@ -12,7 +12,7 @@ import '../routes.dart';
 
 // const String eventsPath = 'http://echo.jsontest.com/key/';
 const String eventsPath =
-    'https://graph.facebook.com/v11.0/me/events?fields=id,name&access_token=';
+    'https://graph.facebook.com/v11.0/me/events?fields=id,name,cover&access_token=';
 // const String eventsPath = 'http://headers.jsontest.com/';
 
 class EventList extends StatefulWidget {
@@ -40,9 +40,14 @@ class _EventListState extends State<EventList> {
         title: Text('Your Events'.i18n),
         actions: [
           IconButton(
-              onPressed: () => {},
-              tooltip: 'Search'.i18n,
-              icon: const Icon(Icons.search)),
+            onPressed: () => {},
+            tooltip: 'Search'.i18n,
+            icon: const Icon(Icons.search),
+          ),
+          // IconButton(
+          //   onPressed: () => {},
+          //   icon: const Icon(Icons.refresh),
+          // ),
         ],
       ),
       body: FutureBuilder(
@@ -65,11 +70,6 @@ class _EventListState extends State<EventList> {
           );
         },
       ),
-      //  ListView(
-      //   children: const <Widget>[
-      //     EventEntry(),
-      //   ],
-      // ),
       floatingActionButton: FloatingActionButton(
         onPressed: () => {Navigator.pushNamed(context, ROUTE.Discover)},
         child: const Icon(Icons.add),
