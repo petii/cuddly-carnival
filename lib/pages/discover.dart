@@ -8,6 +8,7 @@ import 'package:i18n_extension/default.i18n.dart';
 
 class DiscoverPage extends StatefulWidget {
   int progress = 0;
+  late WebViewController controller;
 
   @override
   State<DiscoverPage> createState() => _DiscoverPageState();
@@ -24,12 +25,13 @@ class _DiscoverPageState extends State<DiscoverPage> {
 
   @override
   Widget build(BuildContext context) {
+    final middle = LinearProgressIndicator(
+      value: widget.progress.toInt() / 100,
+      color: Colors.lightBlue,
+    );
     return Scaffold(
       appBar: CupertinoNavigationBar(
-        middle: LinearProgressIndicator(
-          value: widget.progress / 100,
-          color: Colors.lightBlue,
-        ),
+        middle: middle,
         leading: Text(''),
         trailing: Text(''),
       ),
@@ -43,6 +45,9 @@ class _DiscoverPageState extends State<DiscoverPage> {
         debuggingEnabled: true,
         onProgress: (int progress) => setState(() {
           widget.progress = progress;
+        }),
+        onWebViewCreated: (WebViewController controller) => setState(() {
+          widget.controller = controller;
         }),
       ),
       floatingActionButton: FloatingActionButton(
