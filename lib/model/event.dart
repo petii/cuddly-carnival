@@ -28,11 +28,11 @@ class EventModel {
       : id = json['id'],
         name = json['name'],
         cover = CoverModel.fromJson(json['cover']),
-        startTime = null,
-        endTime = null;
-  // startTime = DateTime.parse(json['startTime']),
-  // endTime = DateTime.parse(json['endTime'])
-  // ;
+        startTime = json['start_time'] != null
+            ? DateTime.parse(json['start_time'])
+            : null,
+        endTime =
+            json['end_time'] != null ? DateTime.parse(json['end_time']) : null;
 
   Map<String, dynamic> toJson() => {};
 }

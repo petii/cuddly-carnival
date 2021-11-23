@@ -7,14 +7,12 @@ import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:i18n_extension/default.i18n.dart';
 import 'package:http/http.dart' as http;
 
-import '../model/event_model.dart';
+import '../model/event.dart';
 import '../routes.dart';
 import '../widgets/event_entry.dart';
 
-// const String eventsPath = 'http://echo.jsontest.com/key/';
 const String eventsPath =
-    'https://graph.facebook.com/v11.0/me/events?fields=id,name,cover&access_token=';
-// const String eventsPath = 'http://headers.jsontest.com/';
+    'https://graph.facebook.com/v11.0/me/events?fields=id,name,cover,start_time,end_time&access_token=';
 
 class EventList extends StatefulWidget {
   const EventList({required this.accessToken, Key? key}) : super(key: key);
@@ -45,6 +43,7 @@ class _EventListState extends State<EventList> {
             tooltip: 'Search'.i18n,
             icon: const Icon(Icons.search),
           ),
+          // figure out down swipe refresh instead
           // IconButton(
           //   onPressed: () => {},
           //   icon: const Icon(Icons.refresh),

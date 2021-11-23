@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
-import '../model/event_model.dart';
+import '../model/event.dart';
 
 class EventEntry extends StatelessWidget {
   const EventEntry(this.event, {Key? key}) : super(key: key);
@@ -12,7 +13,9 @@ class EventEntry extends StatelessWidget {
     return ListTile(
       leading: Image.network(event.cover.source.toString()),
       title: Text(
-        event.startTime != null ? event.startTime!.toLocal().toString() : 'TBD',
+        event.startTime != null
+            ? DateFormat('y MMMM d H:mm').format(event.startTime!)
+            : 'TBD',
         overflow: TextOverflow.ellipsis,
         maxLines: 1,
       ),
