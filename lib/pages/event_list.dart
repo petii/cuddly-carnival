@@ -7,8 +7,9 @@ import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:i18n_extension/default.i18n.dart';
 import 'package:http/http.dart' as http;
 
-import '../widgets/event_entry.dart';
+import '../model/event_model.dart';
 import '../routes.dart';
+import '../widgets/event_entry.dart';
 
 // const String eventsPath = 'http://echo.jsontest.com/key/';
 const String eventsPath =
@@ -64,7 +65,7 @@ class _EventListState extends State<EventList> {
           return ListView(
             children: eventData
                 .map(
-                  (data) => Text(data['name']),
+                  (data) => EventEntry(EventModel.fromJson(data)),
                 )
                 .toList(),
           );
