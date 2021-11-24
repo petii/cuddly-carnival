@@ -1,7 +1,9 @@
 import 'dart:convert';
 import 'dart:developer';
 
+import 'package:cuddly_carnival/model/response.dart';
 import 'package:cuddly_carnival/routes.dart';
+import 'package:cuddly_carnival/utils/event_request.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:i18n_extension/default.i18n.dart';
@@ -15,16 +17,16 @@ const String eventsPath =
     'https://graph.facebook.com/v11.0/me/events?fields=id,name,cover,start_time,end_time&access_token=';
 
 class EventList extends StatefulWidget {
-  const EventList({required this.accessToken, Key? key}) : super(key: key);
+  EventList({required AccessToken accessToken, Key? key})
+      : requests = EventRequests(accessToken),
+        super(key: key);
 
-  Future<Map<String, dynamic>> getEvents() async {
-    http.Response response =
-        await http.get(Uri.parse(eventsPath + accessToken.token));
-    log(response.statusCode.toString());
-    return jsonDecode(response.body);
+  // Future<Map<String, dynamic>> getEvents() async {
+  Future<EventResponseModel> getEvents() async {
+    return await requests.get();
   }
 
-  final AccessToken accessToken;
+  final EventRequests requests;
 
   @override
   State<StatefulWidget> createState() => _EventListState();
@@ -33,7 +35,6 @@ class EventList extends StatefulWidget {
 class _EventListState extends State<EventList> {
   @override
   Widget build(BuildContext context) {
-    log(widget.accessToken.token);
     return Scaffold(
       appBar: AppBar(
         title: Text('Your Events'.i18n),
@@ -51,20 +52,20 @@ class _EventListState extends State<EventList> {
         ],
       ),
       body: FutureBuilder(
-        future: widget.getEvents(),
+        future: widget.requests.get(fields: ['id']),
         builder: (BuildContext context, AsyncSnapshot snapshot) {
-          log(snapshot.toString());
-          final children = <Widget>[];
-          final List<dynamic> eventData;
+          final EventResponseModel response;
           if (snapshot.hasData) {
-            eventData = snapshot.data['data'];
+            response = snapshot.data;
           } else {
-            eventData = [];
+            return Center(child: Text('loading'));
           }
+
+          log(response.data.toString());
           return ListView(
-            children: eventData
+            children: response.data!
                 .map(
-                  (data) => EventEntry(EventModel.fromJson(data)),
+                  (data) => EventEntry(data),
                 )
                 .toList(),
           );

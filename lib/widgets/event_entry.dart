@@ -11,7 +11,9 @@ class EventEntry extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      leading: Image.network(event.cover.source.toString()),
+      leading: event.cover != null
+          ? Image.network(event.cover!.source.toString())
+          : Icon(Icons.broken_image_rounded),
       title: Text(
         event.startTime != null
             ? DateFormat('y MMMM d H:mm').format(event.startTime!)
@@ -19,7 +21,7 @@ class EventEntry extends StatelessWidget {
         overflow: TextOverflow.ellipsis,
         maxLines: 1,
       ),
-      subtitle: Text(event.name),
+      subtitle: Text(event.name ?? 'TBD'),
     );
   }
 }

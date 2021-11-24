@@ -16,8 +16,8 @@ class CoverModel {
 
 class EventModel {
   final String id;
-  final String name;
-  final CoverModel cover;
+  final String? name;
+  final CoverModel? cover;
   final DateTime? startTime;
   final DateTime? endTime;
 
@@ -27,7 +27,8 @@ class EventModel {
   EventModel.fromJson(Map<String, dynamic> json)
       : id = json['id'],
         name = json['name'],
-        cover = CoverModel.fromJson(json['cover']),
+        cover =
+            json['cover'] != null ? CoverModel.fromJson(json['cover']) : null,
         startTime = json['start_time'] != null
             ? DateTime.parse(json['start_time'])
             : null,
