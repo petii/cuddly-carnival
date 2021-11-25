@@ -1,4 +1,3 @@
-import 'dart:convert';
 import 'dart:developer';
 
 import 'package:cuddly_carnival/model/response.dart';
@@ -7,9 +6,7 @@ import 'package:cuddly_carnival/utils/event_request.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:i18n_extension/default.i18n.dart';
-import 'package:http/http.dart' as http;
 
-import '../model/event.dart';
 import '../routes.dart';
 import '../widgets/event_entry.dart';
 
@@ -61,15 +58,19 @@ class _EventListState extends State<EventList> {
           } else {
             return Center(child: Text('loading'));
           }
-
           // log(response.data.toString());
           // log(response.paging.toString());
-          return ListView(
-            children: response.data!
-                .map(
-                  (data) => EventEntry(data),
-                )
-                .toList(),
+          return RefreshIndicator(
+            child: ListView(
+              children: response.data!
+                  .map(
+                    (data) => EventEntry(data),
+                  )
+                  .toList(),
+            ),
+            onRefresh: () async {
+              log('on refresh');
+            },
           );
         },
       ),
