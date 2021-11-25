@@ -52,7 +52,8 @@ class _EventListState extends State<EventList> {
         ],
       ),
       body: FutureBuilder(
-        future: widget.requests.get(fields: ['id']),
+        future: widget.requests
+            .get(fields: ['id', 'start_time', 'end_time', 'name', 'cover']),
         builder: (BuildContext context, AsyncSnapshot snapshot) {
           final EventResponseModel response;
           if (snapshot.hasData) {
