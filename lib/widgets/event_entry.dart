@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:add_2_calendar/add_2_calendar.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
@@ -34,6 +35,13 @@ class EventEntry extends StatelessWidget {
 
   void onAddToCalendar() {
     log('${event.id} - add to calendar');
+    Add2Calendar.addEvent2Cal(
+      Event(
+        title: event.name ?? 'TBD',
+        startDate: event.startTime ?? DateTime.now(),
+        endDate: event.endTime ?? DateTime.now().add(const Duration(hours: 1)),
+      ),
+    );
   }
 
   void onViewDetails() {
