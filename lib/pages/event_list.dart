@@ -10,15 +10,11 @@ import 'package:i18n_extension/default.i18n.dart';
 import '../routes.dart';
 import '../widgets/event_entry.dart';
 
-const String eventsPath =
-    'https://graph.facebook.com/v11.0/me/events?fields=id,name,cover,start_time,end_time&access_token=';
-
 class EventList extends StatefulWidget {
   EventList({required AccessToken accessToken, Key? key})
       : requests = EventRequests(accessToken),
         super(key: key);
 
-  // Future<Map<String, dynamic>> getEvents() async {
   Future<EventResponseModel> getEvents() async {
     return await requests.get();
   }
@@ -41,11 +37,6 @@ class _EventListState extends State<EventList> {
             tooltip: 'Search'.i18n,
             icon: const Icon(Icons.search),
           ),
-          // figure out down swipe refresh instead
-          // IconButton(
-          //   onPressed: () => {},
-          //   icon: const Icon(Icons.refresh),
-          // ),
         ],
       ),
       body: FutureBuilder(

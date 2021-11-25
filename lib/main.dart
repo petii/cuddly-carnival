@@ -19,7 +19,7 @@ Future<void> main() async {
 class CucaApp extends StatefulWidget {
   const CucaApp({Key? key}) : super(key: key);
 
-  Future<AccessToken?> getAccesToken() async {
+  Future<AccessToken?> getAccessToken() async {
     final preferences = await SharedPreferences.getInstance();
     String? maybeToken = preferences.getString('accesstoken');
     if (maybeToken != null) {
@@ -68,7 +68,7 @@ class _AppState extends State<CucaApp> {
       ],
       home: I18n(
         child: FutureBuilder(
-            future: widget.getAccesToken(),
+            future: widget.getAccessToken(),
             builder: (BuildContext context, AsyncSnapshot snapshot) {
               if (snapshot.connectionState != ConnectionState.done) {
                 log(snapshot.toString());
