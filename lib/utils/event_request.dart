@@ -34,7 +34,7 @@ class EventRequests {
     var rawResponse = await http.get(requestUri);
     var json = jsonDecode(rawResponse.body);
     log('${rawResponse.statusCode}: ${rawResponse.reasonPhrase}');
-    log(json.toString());
+    log('${json.toString().substring(0, rawResponse.statusCode)}...');
 
     if (rawResponse.statusCode != 200) {
       throw Error();

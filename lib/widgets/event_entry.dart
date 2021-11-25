@@ -34,16 +34,30 @@ class EventEntry extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListTile(
-      leading: event.cover != null
-          ? Image.network(event.cover!.source.toString())
-          : const Icon(Icons.broken_image_rounded),
-      title: Text(
-        eventDateFormatting(startTime: event.startTime, endTime: event.endTime),
-        overflow: TextOverflow.ellipsis,
-        maxLines: 1,
+    return Card(
+      child: ListTile(
+        contentPadding: const EdgeInsets.symmetric(horizontal: 6),
+        isThreeLine: false,
+        leading: event.cover != null
+            ? ClipRRect(
+                borderRadius: BorderRadius.circular(8),
+                child: Image.network(
+                  event.cover!.source.toString(),
+                ),
+              )
+            : const Icon(Icons.broken_image_rounded),
+        title: Text(
+          event.name ?? 'TBD',
+          maxLines: 2,
+          overflow: TextOverflow.ellipsis,
+        ),
+        subtitle: Text(
+          eventDateFormatting(
+              startTime: event.startTime, endTime: event.endTime),
+          overflow: TextOverflow.ellipsis,
+          maxLines: 1,
+        ),
       ),
-      subtitle: Text(event.name ?? 'TBD'),
     );
   }
 }

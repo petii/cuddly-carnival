@@ -62,7 +62,8 @@ class _EventListState extends State<EventList> {
             return Center(child: Text('loading'));
           }
 
-          log(response.data.toString());
+          // log(response.data.toString());
+          // log(response.paging.toString());
           return ListView(
             children: response.data!
                 .map(
