@@ -42,7 +42,7 @@ dependencies:
   flutter_facebook_auth: ^3.5.6
   http: ^0.13.4
   shared_preferences: ^2.0.9
-  device_calendar: ^4.0.1-dev.13167
+  # device_calendar: ^4.0.1-dev.13167
   add_2_calendar: ^2.1.2
 
 

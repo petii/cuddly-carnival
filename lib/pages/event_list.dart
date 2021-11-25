@@ -37,6 +37,11 @@ class _EventListState extends State<EventList> {
             tooltip: 'Search'.i18n,
             icon: const Icon(Icons.search),
           ),
+          IconButton(
+            onPressed: () => {},
+            icon: Icon(Icons.sort),
+            // tooltip: 'Sort by'.i18n,
+          ),
         ],
       ),
       body: FutureBuilder(
@@ -66,6 +71,7 @@ class _EventListState extends State<EventList> {
         },
       ),
       floatingActionButton: FloatingActionButton(
+        tooltip: 'Discover events'.i18n,
         onPressed: () => {Navigator.pushNamed(context, ROUTE.Discover)},
         child: const Icon(Icons.add),
       ),
