@@ -39,14 +39,20 @@ class _EventListState extends State<EventList> {
           ),
           IconButton(
             onPressed: () => {},
-            icon: Icon(Icons.sort),
+            icon: const Icon(Icons.sort),
             // tooltip: 'Sort by'.i18n,
           ),
         ],
       ),
       body: FutureBuilder(
-        future: widget.requests
-            .get(fields: ['id', 'start_time', 'end_time', 'name', 'cover']),
+        future: widget.requests.get(fields: [
+          'id',
+          'start_time',
+          'end_time',
+          'name',
+          'cover',
+          'description'
+        ]),
         builder: (BuildContext context, AsyncSnapshot snapshot) {
           final EventResponseModel response;
           if (snapshot.hasData) {

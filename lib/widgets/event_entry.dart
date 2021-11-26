@@ -94,6 +94,10 @@ class _EventEntryState extends State<EventEntry> {
                       style: Theme.of(context).textTheme.bodyText2,
                     ),
                   ),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Text(widget.event.description ?? ''),
+                  ),
                   // FutureBuilder(builder: ) // for description et al
                   ButtonBar(
                     alignment: MainAxisAlignment.start,
