@@ -17,7 +17,7 @@ String eventDateFormatting({DateTime? startTime, DateTime? endTime}) {
     return 'TBD';
   }
   if (endTime == null) {
-    return DateFormat('y MMMM d H:mm').format(startTime);
+    return fullDateTime.format(startTime);
   }
   if (startTime.year != endTime.year) {
     return '${shortDateTimeWithYear.format(startTime)} - ${shortDateTimeWithYear.format(endTime)}';
@@ -28,7 +28,7 @@ String eventDateFormatting({DateTime? startTime, DateTime? endTime}) {
   if (startTime.day != endTime.day) {
     return '${shortDateTimeWithYear.format(startTime)} - ${shortDateTime.format(endTime)}';
   }
-  return '${shortDateTimeWithYear.format(startTime)} - ${timeOfDay.format(endTime)}';
+  return '${fullDateTime.format(startTime)} - ${timeOfDay.format(endTime)}';
 }
 
 class EventEntry extends StatefulWidget {
@@ -52,9 +52,9 @@ class _EventEntryState extends State<EventEntry> {
     Add2Calendar.addEvent2Cal(
       Event(
         title: widget.event.name ?? 'TBD',
-        startDate: widget.event.startTime ?? DateTime.now(),
+        startDate: widget.event.startTime!,
         endDate: widget.event.endTime ??
-            DateTime.now().add(const Duration(hours: 1)),
+            widget.event.startTime!.add(const Duration(hours: 1)),
       ),
     );
   }
@@ -99,7 +99,7 @@ class _EventEntryState extends State<EventEntry> {
                     alignment: MainAxisAlignment.start,
                     children: [
                       TextButton(
-                        onPressed: () {},
+                        onPressed: onAddToCalendar,
                         child: Text('Add to calendar'.i18n),
                       ),
                       TextButton(
