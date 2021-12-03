@@ -11,7 +11,6 @@ String eventDateFormatting({DateTime? startTime, DateTime? endTime}) {
   final fullDateTime = DateFormat('y MMMM d H:mm');
   final shortDateTimeWithYear = DateFormat('y MMM d h:mm');
   final shortDateTime = DateFormat('MMM d h:mm');
-  final dayAndTime = DateFormat('d H:mm');
   final timeOfDay = DateFormat('H:mm');
   if (startTime == null) {
     return 'TBD';

@@ -58,7 +58,7 @@ class _EventListState extends State<EventList> {
           if (snapshot.hasData) {
             response = snapshot.data;
           } else {
-            return Center(child: Text('loading'));
+            return const Center(child: CircularProgressIndicator());
           }
           // log(response.data.toString());
           // log(response.paging.toString());

@@ -86,7 +86,7 @@ class _AppState extends State<CucaApp> {
       routes: {
         ROUTE.Login: (BuildContext context) => const LoginSplash(),
         // ROUTE.Events: (BuildContext context) => EventList(),
-        ROUTE.Discover: (BuildContext context) => DiscoverPage(),
+        ROUTE.Discover: (BuildContext context) => const DiscoverPage(),
       },
     );
   }

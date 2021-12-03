@@ -1,20 +1,20 @@
-import 'dart:developer';
 import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:webview_flutter/webview_flutter.dart';
-import 'package:i18n_extension/default.i18n.dart';
 
 class DiscoverPage extends StatefulWidget {
-  int progress = 0;
-  late WebViewController controller;
+  const DiscoverPage({Key? key}) : super(key: key);
 
   @override
   State<DiscoverPage> createState() => _DiscoverPageState();
 }
 
 class _DiscoverPageState extends State<DiscoverPage> {
+  int progress = 0;
+  late WebViewController controller;
+
   @override
   void initState() {
     super.initState();
@@ -26,14 +26,14 @@ class _DiscoverPageState extends State<DiscoverPage> {
   @override
   Widget build(BuildContext context) {
     final middle = LinearProgressIndicator(
-      value: widget.progress.toInt() / 100,
+      value: progress.toInt() / 100,
       color: Colors.lightBlue,
     );
     return Scaffold(
       appBar: CupertinoNavigationBar(
         middle: middle,
-        leading: Text(''),
-        trailing: Text(''),
+        leading: const Text(''),
+        trailing: const Text(''),
       ),
       body: WebView(
         initialUrl: 'https://facebook.com/events/discovery',
@@ -44,10 +44,10 @@ class _DiscoverPageState extends State<DiscoverPage> {
             AutoMediaPlaybackPolicy.require_user_action_for_all_media_types,
         debuggingEnabled: true,
         onProgress: (int progress) => setState(() {
-          widget.progress = progress;
+          progress = progress;
         }),
         onWebViewCreated: (WebViewController controller) => setState(() {
-          widget.controller = controller;
+          controller = controller;
         }),
       ),
       floatingActionButton: FloatingActionButton(
