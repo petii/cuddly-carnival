@@ -68,80 +68,136 @@ class _EventEntryState extends State<EventEntry> {
     return Card(
       child: InkWell(
         child: _expanded
-            ? Column(
-                // mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                // mainAxisSize: MainAxisSize.min,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.only(bottom: 8.0),
-                    child: widget._cover,
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Text(
-                      widget.event.name ?? 'TBD',
-                      style: Theme.of(context).textTheme.bodyText1,
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                    child: Text(
-                      eventDateFormatting(
-                          startTime: widget.event.startTime,
-                          endTime: widget.event.endTime),
-                      style: Theme.of(context).textTheme.bodyText2,
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Text(widget.event.description ?? ''),
-                  ),
-                  // FutureBuilder(builder: ) // for description et al
-                  ButtonBar(
-                    alignment: MainAxisAlignment.start,
-                    children: [
-                      TextButton(
-                        onPressed: onAddToCalendar,
-                        child: Text('Add to calendar'.i18n),
-                      ),
-                      TextButton(
-                        onPressed: () {},
-                        child: Text('View event on Facebook'.i18n),
-                      ),
-                    ],
-                  )
-                ],
+            ? _ExpandedCard(
+                event: widget.event,
+                onAddToCalendar: onAddToCalendar,
+                cover: widget._cover,
               )
-            : ListTile(
-                contentPadding: const EdgeInsets.symmetric(horizontal: 6),
-                isThreeLine: false,
-                leading: widget.event.cover != null
-                    ? ClipRRect(
-                        borderRadius: BorderRadius.circular(8),
-                        child: widget._cover,
-                      )
-                    : const Icon(Icons.broken_image_rounded),
-                title: Text(
-                  widget.event.name ?? 'TBD',
-                  maxLines: 2,
-                  overflow: TextOverflow.ellipsis,
-                ),
-                subtitle: Text(
-                  eventDateFormatting(
-                      startTime: widget.event.startTime,
-                      endTime: widget.event.endTime),
-                  overflow: TextOverflow.ellipsis,
-                  maxLines: 1,
-                ),
-                trailing: IconButton(
-                  // icon: Icon(Icons.event_available),
-                  icon: const Icon(Icons.event),
-                  onPressed: onAddToCalendar,
-                ),
+            : _TileCard(
+                event: widget.event,
+                onAddToCalendar: onAddToCalendar,
+                cover: widget._cover,
               ),
         onTap: onToggleDetails,
       ),
+    );
+  }
+}
+
+class _EventData {
+  const _EventData(
+      {required this.event, required this.onAddToCalendar, this.cover});
+
+  final EventModel event;
+  final Image? cover;
+  final void Function() onAddToCalendar;
+}
+
+class _TileCard extends StatelessWidget {
+  _TileCard(
+      {required EventModel event,
+      required Function() onAddToCalendar,
+      Image? cover,
+      Key? key})
+      : data = _EventData(
+            event: event, onAddToCalendar: onAddToCalendar, cover: cover),
+        super(key: key);
+
+  const _TileCard.fromData({required this.data, Key? key}) : super(key: key);
+
+  final _EventData data;
+
+  @override
+  Widget build(BuildContext context) {
+    return ListTile(
+      contentPadding: const EdgeInsets.symmetric(horizontal: 6),
+      isThreeLine: false,
+      leading: data.event.cover != null
+          ? ClipRRect(
+              borderRadius: BorderRadius.circular(4),
+              child: data.cover,
+            )
+          : const Icon(Icons.broken_image_rounded),
+      title: Text(
+        data.event.name ?? 'TBD',
+        maxLines: 2,
+        overflow: TextOverflow.ellipsis,
+      ),
+      subtitle: Text(
+        eventDateFormatting(
+            startTime: data.event.startTime, endTime: data.event.endTime),
+        overflow: TextOverflow.ellipsis,
+        maxLines: 1,
+      ),
+      trailing: IconButton(
+        // icon: Icon(Icons.event_available),
+        icon: const Icon(Icons.event),
+        onPressed: data.onAddToCalendar,
+      ),
+    );
+  }
+}
+
+class _ExpandedCard extends StatelessWidget {
+  _ExpandedCard(
+      {required EventModel event,
+      required Function() onAddToCalendar,
+      Image? cover,
+      Key? key})
+      : data = _EventData(
+            event: event, onAddToCalendar: onAddToCalendar, cover: cover),
+        super(key: key);
+
+  const _ExpandedCard.fromData({required this.data, Key? key})
+      : super(key: key);
+
+  final _EventData data;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      // mainAxisAlignment: MainAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      // mainAxisSize: MainAxisSize.min,
+      children: [
+        Padding(
+          padding: const EdgeInsets.only(bottom: 8.0),
+          child: data.cover,
+        ),
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Text(
+            data.event.name ?? 'TBD',
+            style: Theme.of(context).textTheme.bodyText1,
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 8.0),
+          child: Text(
+            eventDateFormatting(
+                startTime: data.event.startTime, endTime: data.event.endTime),
+            style: Theme.of(context).textTheme.bodyText2,
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Text(data.event.description ?? ''),
+        ),
+        // FutureBuilder(builder: ) // for description et al
+        ButtonBar(
+          alignment: MainAxisAlignment.start,
+          children: [
+            TextButton(
+              onPressed: data.onAddToCalendar,
+              child: Text('Add to calendar'.i18n),
+            ),
+            TextButton(
+              onPressed: () {},
+              child: Text('View event on Facebook'.i18n),
+            ),
+          ],
+        )
+      ],
     );
   }
 }
