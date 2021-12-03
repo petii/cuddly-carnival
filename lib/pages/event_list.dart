@@ -19,8 +19,10 @@ class EventList extends StatefulWidget {
 
   final EventRequests requests;
 
+  static const _firstPage = Pagination(null, null);
+
   final PagingController<Pagination, EventModel> _pagingController =
-      PagingController(firstPageKey: const Pagination(null, null));
+      PagingController(firstPageKey: _firstPage);
 
   Future<void> fetchEvents(Pagination pageKey) async {
     try {
@@ -90,11 +92,14 @@ class _EventListState extends State<EventList> {
           ),
         ],
       ),
-      body: PagedListView(
-        pagingController: widget._pagingController,
-        builderDelegate: PagedChildBuilderDelegate<EventModel>(
-          itemBuilder: (context, item, index) => EventEntry(item),
+      body: RefreshIndicator(
+        child: PagedListView(
+          pagingController: widget._pagingController,
+          builderDelegate: PagedChildBuilderDelegate<EventModel>(
+            itemBuilder: (context, item, index) => EventEntry(item),
+          ),
         ),
+        onRefresh: () async => widget._pagingController.refresh(),
       ),
       floatingActionButton: FloatingActionButton(
         tooltip: 'Discover events'.i18n,
