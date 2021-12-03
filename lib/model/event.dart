@@ -16,6 +16,17 @@ class CoverModel {
   // Point(num.parse(json['offset_x']), num.parse(json['offset_y']));
 }
 
+class PlaceModel {
+  final String? id;
+  final String? name;
+  final dynamic location;
+
+  PlaceModel.fromJson(Map<String, dynamic> json)
+      : id = json['id'],
+        name = json['name'],
+        location = json['location'];
+}
+
 enum EventFields {
   id,
   name,
@@ -40,9 +51,10 @@ class EventModel {
   final DateTime? startTime;
   final DateTime? endTime;
   final String? description;
+  final PlaceModel? place;
 
   const EventModel(this.id, this.name, this.cover, this.startTime, this.endTime,
-      this.description);
+      this.description, this.place);
 
   EventModel.fromJson(Map<String, dynamic> json)
       : id = json['id'],
@@ -54,7 +66,9 @@ class EventModel {
             : null,
         endTime =
             json['end_time'] != null ? DateTime.parse(json['end_time']) : null,
-        description = json['description'];
+        description = json['description'],
+        place =
+            json['place'] != null ? PlaceModel.fromJson(json['place']) : null;
 
   Map<String, dynamic> toJson() => {};
 }

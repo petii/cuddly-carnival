@@ -37,6 +37,7 @@ class EventList extends StatefulWidget {
             'name',
             'cover',
             'description',
+            'place',
           ],
           limit: 15, // Chosen by a fair dice roll
         );
@@ -79,7 +80,7 @@ class _EventListState extends State<EventList> {
     return Scaffold(
       appBar: AppBar(
         title: Text('Your Events'.i18n),
-        actions: [
+        actions: const [
           // IconButton(
           //   onPressed: () => {},
           //   tooltip: 'Search'.i18n,

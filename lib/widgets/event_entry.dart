@@ -52,11 +52,12 @@ class _EventEntryState extends State<EventEntry> {
     log('${widget.event.id} - add to calendar');
     Add2Calendar.addEvent2Cal(
       Event(
-        title: widget.event.name ?? 'TBD',
-        startDate: widget.event.startTime!,
-        endDate: widget.event.endTime ??
-            widget.event.startTime!.add(const Duration(hours: 1)),
-      ),
+          title: widget.event.name ?? 'TBD',
+          startDate: widget.event.startTime!,
+          endDate: widget.event.endTime ??
+              widget.event.startTime!.add(const Duration(hours: 1)),
+          description: widget.event.description ?? '',
+          location: widget.event.place?.name ?? ''),
     );
   }
 
