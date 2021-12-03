@@ -80,16 +80,16 @@ class _EventListState extends State<EventList> {
       appBar: AppBar(
         title: Text('Your Events'.i18n),
         actions: [
-          IconButton(
-            onPressed: () => {},
-            tooltip: 'Search'.i18n,
-            icon: const Icon(Icons.search),
-          ),
-          IconButton(
-            onPressed: () => {},
-            icon: const Icon(Icons.sort),
-            // tooltip: 'Sort by'.i18n,
-          ),
+          // IconButton(
+          //   onPressed: () => {},
+          //   tooltip: 'Search'.i18n,
+          //   icon: const Icon(Icons.search),
+          // ),
+          // IconButton(
+          //   onPressed: () => {},
+          //   icon: const Icon(Icons.sort),
+          // tooltip: 'Sort by'.i18n,
+          // ),
         ],
       ),
       body: RefreshIndicator(

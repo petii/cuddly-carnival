@@ -5,6 +5,7 @@ import 'package:expandable_text/expandable_text.dart';
 import 'package:flutter/material.dart';
 import 'package:i18n_extension/default.i18n.dart';
 import 'package:intl/intl.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../model/event.dart';
 
@@ -198,7 +199,8 @@ class _ExpandedCard extends StatelessWidget {
               child: Text('Add to calendar'.i18n),
             ),
             TextButton(
-              onPressed: () {},
+              onPressed: () async =>
+                  await launch('https://facebook.com/${data.event.id}'),
               child: Text('View event on Facebook'.i18n),
             ),
           ],
