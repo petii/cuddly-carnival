@@ -55,7 +55,7 @@ class _AppState extends State<CucaApp> {
       title: 'Cuddly Carnival',
       theme: ThemeData.light(),
       // TODO: figure out themes
-      // darkTheme: ThemeData.dark(),
+      darkTheme: ThemeData.dark(),
       localizationsDelegates: const [
         GlobalMaterialLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate,
