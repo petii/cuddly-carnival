@@ -9,6 +9,10 @@ class Cursors {
   Cursors.fromJson(Map<String, dynamic> json)
       : before = json['before'],
         after = json['after'];
+
+  Map<String, dynamic> toJson() {
+    return {'before': before, 'after': after};
+  }
 }
 
 class Pagination {
@@ -20,7 +24,14 @@ class Pagination {
   Pagination.fromJson(Map<String, dynamic> json)
       : cursors =
             json['cursors'] != null ? Cursors.fromJson(json['cursors']) : null,
-        next = Uri.tryParse(json['next'] ?? '');
+        next = json['next'] != null ? Uri.tryParse(json['next']) : null;
+
+  Map<String, dynamic> toJson() {
+    return {
+      'cursors': cursors?.toJson(),
+      'next': next?.toString(),
+    };
+  }
 }
 
 class EventResponseModel {

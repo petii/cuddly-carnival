@@ -30,17 +30,29 @@ class EventRequests {
     Uri requestUri = Uri.https(ApiConstants.authority, path, query);
     log(requestUri.toString());
 
-    var rawResponse = await http.get(requestUri);
+    var rawResponse = await _sendRequest(requestUri);
     var json = jsonDecode(rawResponse.body);
     log('${rawResponse.statusCode}: ${rawResponse.reasonPhrase}');
     log('${json.toString().substring(0, rawResponse.statusCode)}...');
 
+    var response = EventResponseModel.fromJson(json);
+    return response;
+  }
+
+  Future<EventResponseModel> getNext(Uri next) async {
+    // log(next.toString());
+    var rawResponse = await _sendRequest(next);
+    var json = jsonDecode(rawResponse.body);
+    var response = EventResponseModel.fromJson(json);
+    return response;
+  }
+
+  Future<http.Response> _sendRequest(Uri request) async {
+    var rawResponse = await http.get(request);
     if (rawResponse.statusCode != 200) {
       throw Error();
     }
-
-    var response = EventResponseModel.fromJson(json);
-    return response;
+    return rawResponse;
   }
 
   final AccessToken accessToken;
