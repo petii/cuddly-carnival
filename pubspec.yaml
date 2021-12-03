@@ -44,6 +44,7 @@ dependencies:
   shared_preferences: ^2.0.9
   # device_calendar: ^4.0.1-dev.13167
   add_2_calendar: ^2.1.2
+  expandable_text: ^2.2.0
 
 
 dev_dependencies:

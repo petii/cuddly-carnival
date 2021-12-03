@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:add_2_calendar/add_2_calendar.dart';
+import 'package:expandable_text/expandable_text.dart';
 import 'package:flutter/material.dart';
 import 'package:i18n_extension/default.i18n.dart';
 import 'package:intl/intl.dart';
@@ -181,7 +182,12 @@ class _ExpandedCard extends StatelessWidget {
         ),
         Padding(
           padding: const EdgeInsets.all(8.0),
-          child: Text(data.event.description ?? ''),
+          child: ExpandableText(
+            data.event.description ?? '',
+            expandText: 'show more'.i18n,
+            collapseText: 'show less'.i18n,
+            maxLines: 6,
+          ),
         ),
         // FutureBuilder(builder: ) // for description et al
         ButtonBar(
