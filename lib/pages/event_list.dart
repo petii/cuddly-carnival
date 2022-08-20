@@ -12,6 +12,47 @@ import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import '../routes.dart';
 import '../widgets/event_entry.dart';
 
+class EventListNoAccessToken extends StatelessWidget {
+  const EventListNoAccessToken({Key? key}): super(key:key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Your Events'.i18n),
+        actions: const [
+          // IconButton(
+          //   onPressed: () => {},
+          //   tooltip: 'Search'.i18n,
+          //   icon: const Icon(Icons.search),
+          // ),
+          // IconButton(
+          //   onPressed: () => {},
+          //   icon: const Icon(Icons.sort),
+          // tooltip: 'Sort by'.i18n,
+          // ),
+        ],
+      ),
+      body: RefreshIndicator(
+        child: Text('TODO'),
+        // PagedListView(
+        //   pagingController: widget._pagingController,
+        //   builderDelegate: PagedChildBuilderDelegate<EventModel>(
+        //     itemBuilder: (context, item, index) => EventEntry(item),
+        //   ),
+        // ),
+        onRefresh: () async {},
+      ),
+      floatingActionButton: FloatingActionButton(
+        tooltip: 'Discover events'.i18n,
+        onPressed: () => {Navigator.pushNamed(context, ROUTE.Discover)},
+        child: const Icon(Icons.add),
+      ),
+    );
+  }
+
+}
+
 class EventList extends StatefulWidget {
   EventList({required AccessToken accessToken, Key? key})
       : requests = EventRequests(accessToken),

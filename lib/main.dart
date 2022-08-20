@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:developer';
 
+import 'package:cuddly_carnival/utils/access_token.dart';
 import 'package:flutter/material.dart';
 import 'package:i18n_extension/i18n_widget.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -18,31 +19,6 @@ Future<void> main() async {
 
 class CucaApp extends StatefulWidget {
   const CucaApp({Key? key}) : super(key: key);
-
-  Future<AccessToken?> getAccessToken() async {
-    final preferences = await SharedPreferences.getInstance();
-    String? maybeToken = preferences.getString('accesstoken');
-    if (maybeToken != null) {
-      // TODO: mother fucker... toJson dumps iso8601 dates,
-      //                        fromJson eats time since epoch
-      Map<String, dynamic> tokenJson = jsonDecode(maybeToken);
-      tokenJson['expires'] =
-          DateTime.parse(tokenJson['expires']).millisecondsSinceEpoch;
-      tokenJson['lastRefresh'] =
-          DateTime.parse(tokenJson['lastRefresh']).millisecondsSinceEpoch;
-      // TODO: ask for refreshed access token if expired
-      return AccessToken.fromJson(tokenJson);
-    }
-    final LoginResult result = await FacebookAuth.instance.login(
-      permissions: ['public_profile', 'user_events'],
-    );
-    if (result.status == LoginStatus.success) {
-      final token = result.accessToken!;
-      final tokenJson = jsonEncode(token.toJson());
-      preferences.setString('accesstoken', tokenJson);
-    }
-    return result.accessToken;
-  }
 
   @override
   State<StatefulWidget> createState() => _AppState();
@@ -69,7 +45,7 @@ class _AppState extends State<CucaApp> {
       ],
       home: I18n(
         child: FutureBuilder(
-            future: widget.getAccessToken(),
+            future: getAccessToken(),
             builder: (BuildContext context, AsyncSnapshot snapshot) {
               if (snapshot.connectionState != ConnectionState.done) {
                 log(snapshot.toString());
@@ -85,7 +61,7 @@ class _AppState extends State<CucaApp> {
       ),
       routes: {
         ROUTE.Login: (BuildContext context) => const LoginSplash(),
-        // ROUTE.Events: (BuildContext context) => EventList(),
+        ROUTE.Events: (BuildContext context) => EventListNoAccessToken(),
         ROUTE.Discover: (BuildContext context) => const DiscoverPage(),
       },
     );
