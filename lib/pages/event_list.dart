@@ -34,7 +34,7 @@ class EventListNoAccessToken extends StatelessWidget {
         ],
       ),
       body: RefreshIndicator(
-        child: Text('TODO'),
+        child: const Text('TODO'),
         // PagedListView(
         //   pagingController: widget._pagingController,
         //   builderDelegate: PagedChildBuilderDelegate<EventModel>(
@@ -67,7 +67,7 @@ class EventList extends StatefulWidget {
 
   Future<void> fetchEvents(Pagination pageKey) async {
     try {
-      log('pageKey: ' + pageKey.toJson().toString());
+      log('pageKey: ${pageKey.toJson()}');
       EventResponseModel response;
       if (pageKey.cursors == null && pageKey.next == null) {
         response = await requests.get(
@@ -88,7 +88,7 @@ class EventList extends StatefulWidget {
       if (response.data == null) {
         throw Error();
       }
-      log('response.paging:' + (response.paging?.toJson().toString() ?? ''));
+      log('response.paging:${response.paging?.toJson().toString() ?? ''}');
       var items = response.data!.toList();
 
       bool lastPage = response.paging?.next == null;

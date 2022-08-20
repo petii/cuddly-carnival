@@ -1,4 +1,3 @@
-import 'dart:convert';
 import 'dart:developer';
 
 import 'package:cuddly_carnival/utils/access_token.dart';
@@ -6,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:i18n_extension/i18n_widget.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 import 'pages/event_list.dart';
 import 'pages/discover.dart';
@@ -61,7 +59,7 @@ class _AppState extends State<CucaApp> {
       ),
       routes: {
         ROUTE.Login: (BuildContext context) => const LoginSplash(),
-        ROUTE.Events: (BuildContext context) => EventListNoAccessToken(),
+        ROUTE.Events: (BuildContext context) => const EventListNoAccessToken(),
         ROUTE.Discover: (BuildContext context) => const DiscoverPage(),
       },
     );

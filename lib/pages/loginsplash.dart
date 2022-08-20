@@ -1,7 +1,6 @@
 import 'dart:developer';
 
 import 'package:cuddly_carnival/routes.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class LoginSplash extends StatelessWidget {

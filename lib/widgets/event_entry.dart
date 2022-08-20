@@ -70,6 +70,7 @@ class _EventEntryState extends State<EventEntry> {
   Widget build(BuildContext context) {
     return Card(
       child: InkWell(
+        onTap: onToggleDetails,
         child: _expanded
             ? _ExpandedCard(
                 event: widget.event,
@@ -81,7 +82,6 @@ class _EventEntryState extends State<EventEntry> {
                 onAddToCalendar: onAddToCalendar,
                 cover: widget._cover,
               ),
-        onTap: onToggleDetails,
       ),
     );
   }
@@ -105,9 +105,7 @@ class _TileCard extends StatelessWidget {
       : data = _EventData(
             event: event, onAddToCalendar: onAddToCalendar, cover: cover),
         super(key: key);
-
-  const _TileCard.fromData({required this.data, Key? key}) : super(key: key);
-
+  
   final _EventData data;
 
   @override
@@ -150,9 +148,6 @@ class _ExpandedCard extends StatelessWidget {
       : data = _EventData(
             event: event, onAddToCalendar: onAddToCalendar, cover: cover),
         super(key: key);
-
-  const _ExpandedCard.fromData({required this.data, Key? key})
-      : super(key: key);
 
   final _EventData data;
 
@@ -201,7 +196,7 @@ class _ExpandedCard extends StatelessWidget {
             ),
             TextButton(
               onPressed: () async =>
-                  await launch('https://facebook.com/${data.event.id}'),
+                  await launchUrl(Uri(host: 'facebook.com', path: data.event.id)),
               child: Text('View event on Facebook'.i18n),
             ),
           ],
